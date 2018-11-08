@@ -1,8 +1,5 @@
 import 'package:clone_facebook_ui/resources/app_colors.dart';
-import 'package:clone_facebook_ui/view/demo.dart';
-import 'package:clone_facebook_ui/view/main/main_view.dart';
 import 'package:clone_facebook_ui/view/splash/splash_view.dart';
-import 'package:clone_facebook_ui/view/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

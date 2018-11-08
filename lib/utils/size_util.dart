@@ -28,6 +28,10 @@ class SizeUtil {
     }
   }
 
+  double getBigger() {
+    return _biggerWidth;
+  }
+
   double getSize(int percent, {bool basedOnSmaller: true}) {
     assert(percent >= 1 && percent <= 1000);
     if (basedOnSmaller) return _getSizeBasedOnSmallerWidth(percent);

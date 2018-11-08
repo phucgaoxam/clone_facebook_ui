@@ -2,6 +2,8 @@ library feed_view;
 
 import 'package:clone_facebook_ui/tiny_base/base_state.dart';
 import 'package:clone_facebook_ui/tiny_base/gesture_detector_state.dart';
+import 'package:clone_facebook_ui/view/create_post/create_post_view.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 part 'feed_widgets.dart';
@@ -27,5 +29,10 @@ class FeedViewState extends GestureDetectorState<FeedView> with FeedViewUIContra
   @override
   Widget buildChild(BuildContext context) {
     return _build(this);
+  }
+
+  @override
+  void onPostStatus() {
+    Navigator.of(context).push(CupertinoPageRoute(builder: (context) => CreatePostView()));
   }
 }

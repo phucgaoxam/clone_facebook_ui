@@ -48,9 +48,4 @@ class _SplashViewState extends BaseState<SplashView> with SplashViewUIContract, 
   Widget build(BuildContext context) {
     return _build(this);
   }
-
-  @override
-  void onInitState() {
-    // TODO: implement onInitState
-  }
 }
