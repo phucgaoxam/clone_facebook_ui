@@ -3,19 +3,23 @@ library group_view;
 import 'dart:async';
 
 import 'package:clone_facebook_ui/tiny_base/base_state.dart';
-import 'package:clone_facebook_ui/view/main/main_view.dart';
+import 'package:clone_facebook_ui/tiny_base/gesture_detector_state.dart';
 import 'package:flutter/material.dart';
 
 part 'group_widgets.dart';
 
 class GroupView extends StatefulWidget {
-  GroupView(Key key) : super(key: key);
+  final ScrollController scrollController;
+
+  GroupView(Key key, this.scrollController) : super(key: key);
 
   @override
-  _GroupViewState createState() => _GroupViewState();
+  _GroupViewState createState() => _GroupViewState(scrollController);
 }
 
-class _GroupViewState extends BaseState<GroupView> with GroupViewUIContract, AutomaticKeepAliveClientMixin {
+class _GroupViewState extends GestureDetectorState<GroupView> with GroupViewUIContract {
+  _GroupViewState(ScrollController mainScrollController) : super(mainScrollController);
+
   @override
   void initState() {
     super.initState();
@@ -23,13 +27,7 @@ class _GroupViewState extends BaseState<GroupView> with GroupViewUIContract, Aut
   }
 
   @override
-  ScrollController get _mainScrollController => getAncestorState<MainViewState>().scrollController;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return _build(this);
-  }
+  ScrollController get _childScrollController => childScrollController;
 
   @override
   void onCreateGroup() {
@@ -69,4 +67,9 @@ class _GroupViewState extends BaseState<GroupView> with GroupViewUIContract, Aut
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  Widget buildChild(BuildContext context) {
+    return _build(this);
+  }
 }

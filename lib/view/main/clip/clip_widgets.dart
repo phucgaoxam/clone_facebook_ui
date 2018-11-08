@@ -1,7 +1,7 @@
 part of clip_view;
 
 abstract class ClipViewUIContract {
-  ScrollController _mainScrollController;
+  ScrollController _childScrollController;
 
   StreamController<List<int>> _channelsStreamController = StreamController.broadcast();
 
@@ -46,6 +46,8 @@ Widget _build(ClipViewUIContract ui) {
           height: constraint.maxHeight,
           width: constraint.maxWidth,
           child: CustomScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: ui._childScrollController,
             slivers: <Widget>[
               _buildWatchListTitle(ui),
               _buildChannels(ui),
@@ -116,7 +118,6 @@ Widget _buildChannels(ClipViewUIContract ui) {
         builder: (context, asyncSnapshot) {
           return ListView.builder(
             scrollDirection: Axis.horizontal,
-            controller: ui._mainScrollController,
             itemCount: asyncSnapshot.data.length,
             itemBuilder: (context, index) {
               return _buildChannelItem(index);
@@ -173,7 +174,7 @@ Widget _buildTopVideosList(ClipViewUIContract ui) {
         builder: (context, asyncSnapshot) {
           return ListView.builder(
             shrinkWrap: true,
-            controller: ScrollController(),
+            physics: NeverScrollableScrollPhysics(),
             itemCount: asyncSnapshot.data.length,
             itemBuilder: (context, index) {
               return _buildVideoItem(index);

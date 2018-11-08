@@ -1,9 +1,9 @@
 part of feed_view;
 
 mixin FeedViewUIContract {
-  ScrollController _scrollController;
-
   BuildContext _context;
+
+  ScrollController _childScrollController;
 }
 
 Widget _build(FeedViewUIContract ui) {
@@ -13,11 +13,14 @@ Widget _build(FeedViewUIContract ui) {
         return Container(
           height: constraint.maxHeight,
           child: CustomScrollView(
+            controller: ui._childScrollController,
+            physics: NeverScrollableScrollPhysics(),
             slivers: <Widget>[
               _buildStatus(),
               SliverToBoxAdapter(
                 child: ListView.builder(
                   controller: ScrollController(),
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: 20,
                   itemBuilder: (context, index) => ListTile(

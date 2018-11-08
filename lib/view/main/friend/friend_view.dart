@@ -3,28 +3,27 @@ library friend_view;
 import 'dart:async';
 
 import 'package:clone_facebook_ui/tiny_base/base_state.dart';
-import 'package:clone_facebook_ui/view/main/main_view.dart';
+import 'package:clone_facebook_ui/tiny_base/gesture_detector_state.dart';
 import 'package:flutter/material.dart';
 
 part 'friend_widgets.dart';
 
 class FriendView extends StatefulWidget {
-  FriendView(Key key) : super(key: key);
+  final ScrollController scrollController;
+
+  FriendView(Key key, this.scrollController) : super(key: key);
+
   @override
-  _FriendViewState createState() => _FriendViewState();
+  _FriendViewState createState() => _FriendViewState(scrollController);
 }
 
-class _FriendViewState extends BaseState<FriendView> with FriendViewUIContract, AutomaticKeepAliveClientMixin {
+class _FriendViewState extends GestureDetectorState<FriendView> with FriendViewUIContract {
+  _FriendViewState(ScrollController mainScrollController) : super(mainScrollController);
+
   @override
   void initState() {
     super.initState();
     onInitState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return _build(this);
   }
 
   @override
@@ -34,8 +33,10 @@ class _FriendViewState extends BaseState<FriendView> with FriendViewUIContract, 
   }
 
   @override
-  ScrollController get _mainScrollController => getAncestorState<MainViewState>().scrollController;
+  ScrollController get _childScrollController => childScrollController;
 
   @override
-  bool get wantKeepAlive => true;
+  Widget buildChild(BuildContext context) {
+    return _build(this);
+  }
 }

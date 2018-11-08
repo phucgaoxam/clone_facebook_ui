@@ -1,31 +1,31 @@
 library feed_view;
 
 import 'package:clone_facebook_ui/tiny_base/base_state.dart';
-import 'package:clone_facebook_ui/view/main/main_view.dart';
+import 'package:clone_facebook_ui/tiny_base/gesture_detector_state.dart';
 import 'package:flutter/material.dart';
 
 part 'feed_widgets.dart';
 
 class FeedView extends StatefulWidget {
-  FeedView(Key key) : super(key: key);
+  final ScrollController scrollController;
+
+  FeedView(Key key, this.scrollController) : super(key: key);
 
   @override
-  FeedViewState createState() => FeedViewState();
+  FeedViewState createState() => FeedViewState(scrollController);
 }
 
-class FeedViewState extends BaseState<FeedView> with FeedViewUIContract, AutomaticKeepAliveClientMixin {
+class FeedViewState extends GestureDetectorState<FeedView> with FeedViewUIContract {
+  FeedViewState(ScrollController mainScrollController) : super(mainScrollController);
+
   @override
   BuildContext get _context => context;
 
   @override
-  ScrollController get _scrollController => getAncestorState<MainViewState>().scrollController;
+  ScrollController get _childScrollController => childScrollController;
 
   @override
-  Widget build(BuildContext context) {
-    super.build(context);
+  Widget buildChild(BuildContext context) {
     return _build(this);
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

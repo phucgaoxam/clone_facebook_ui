@@ -1,7 +1,7 @@
 part of friend_view;
 
 class FriendViewUIContract {
-  ScrollController _mainScrollController;
+  ScrollController _childScrollController;
 
   List<int> _friendRequests = [];
 
@@ -25,6 +25,8 @@ Widget _build(FriendViewUIContract ui) {
     child: LayoutBuilder(
       builder: (context, constraint) {
         return CustomScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: ui._childScrollController,
           slivers: <Widget>[
             _buildFriendRequestTitle(),
             _buildFriendRequestList(ui),
@@ -70,7 +72,7 @@ Widget _buildFriendRequestList(FriendViewUIContract ui) {
       initialData: ui._friendRequests,
       builder: (context, asyncSnapshot) {
         return ListView.builder(
-          controller: ScrollController(),
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: asyncSnapshot.data.length,
           itemBuilder: (context, index) {

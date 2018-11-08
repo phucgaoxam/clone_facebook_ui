@@ -1,6 +1,7 @@
 library clip_view;
 
 import 'package:clone_facebook_ui/tiny_base/base_state.dart';
+import 'package:clone_facebook_ui/tiny_base/gesture_detector_state.dart';
 import 'package:clone_facebook_ui/view/main/main_view.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -8,12 +9,15 @@ import 'dart:async';
 part 'clip_widgets.dart';
 
 class ClipView extends StatefulWidget {
-  ClipView(Key key) : super(key: key);
+  final ScrollController scrollController;
+  ClipView(Key key, this.scrollController) : super(key: key);
   @override
-  _ClipViewState createState() => _ClipViewState();
+  _ClipViewState createState() => _ClipViewState(scrollController);
 }
 
-class _ClipViewState extends BaseState<ClipView> with ClipViewUIContract, AutomaticKeepAliveClientMixin {
+class _ClipViewState extends GestureDetectorState<ClipView> with ClipViewUIContract {
+  _ClipViewState(ScrollController mainScrollController) : super(mainScrollController);
+
 
   @override
   void initState() {
@@ -28,13 +32,7 @@ class _ClipViewState extends BaseState<ClipView> with ClipViewUIContract, Automa
   }
 
   @override
-  ScrollController get _mainScrollController => getAncestorState<MainViewState>().scrollController;
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return _build(this);
-  }
+  ScrollController get _childScrollController => childScrollController;
 
   @override
   void onSeeAll() {
@@ -42,5 +40,7 @@ class _ClipViewState extends BaseState<ClipView> with ClipViewUIContract, Automa
   }
 
   @override
-  bool get wantKeepAlive => true;
+  Widget buildChild(BuildContext context) {
+    return _build(this);
+  }
 }

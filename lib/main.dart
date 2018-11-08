@@ -1,5 +1,6 @@
 import 'package:clone_facebook_ui/resources/app_colors.dart';
 import 'package:clone_facebook_ui/view/demo.dart';
+import 'package:clone_facebook_ui/view/main/main_view.dart';
 import 'package:clone_facebook_ui/view/splash/splash_view.dart';
 import 'package:clone_facebook_ui/view/test.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: AppColors.primaryDarkColor));
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    return MaterialApp(home: TestView());
+    return MaterialApp(home: SplashView());
   }
 }

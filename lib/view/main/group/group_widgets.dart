@@ -11,7 +11,7 @@ abstract class GroupViewUIContract {
 
   List<int> _latestUpdates = [];
 
-  ScrollController _mainScrollController;
+  ScrollController _childScrollController;
 
   void onEditGroup();
 
@@ -49,6 +49,8 @@ Widget _build(GroupViewUIContract ui) {
         return Container(
           padding: EdgeInsets.only(top: SizeUtil.instance.getSize(8, basedOnSmaller: false)),
           child: CustomScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: ui._childScrollController,
             slivers: <Widget>[
               _buildTitle(ui),
               _buildGroups(ui),
@@ -133,8 +135,8 @@ Widget _buildGroups(GroupViewUIContract ui) {
       stream: ui._yourGroupsStreamController.stream,
       builder: (context, asyncSnapshot) {
         return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          controller: ScrollController(),
           itemCount: ui._yourGroups.length,
           itemBuilder: (context, index) => _buildGroupItem(index),
         );
@@ -156,7 +158,7 @@ Widget _buildLatestUpdateContent(GroupViewUIContract ui) {
       initialData: ui._latestUpdates,
       builder: (context, asyncSnapshot) {
         return ListView.builder(
-          controller:ScrollController(),
+          physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: asyncSnapshot.data.length,
           itemBuilder: (context, index) {
