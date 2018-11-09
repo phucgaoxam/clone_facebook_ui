@@ -5,6 +5,8 @@ abstract class CreatePostViewUIContract {
 
   ScrollController _backDropScrollController = ScrollController();
 
+  GlobalKey<_BackdropContentAnimationState> _backdropContentAnimationKey = GlobalKey();
+
   void onShareStatus();
 
   void onDispose() {
@@ -54,10 +56,16 @@ class CreatePostViewBuilder {
   }
 
   Widget _buildBody() {
-    return BackdropContentAnimation(
-      inputContent: InputContent(),
-      backdropContent: BackdropContent(scrollController: ui._backDropScrollController),
-      backDropScrollController: ui._backDropScrollController,
+    return NotificationListener<OverscrollIndicatorNotification>(
+      onNotification: (notification) {
+        notification.disallowGlow();
+      },
+      child: BackdropContentAnimation(
+        ui._backdropContentAnimationKey,
+        inputContent: InputContent(),
+        backdropContent: BackdropContent(scrollController: ui._backDropScrollController),
+        backDropScrollController: ui._backDropScrollController,
+      ),
     );
   }
 }

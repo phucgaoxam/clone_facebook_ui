@@ -10,8 +10,23 @@ class BackdropContent extends StatefulWidget {
 }
 
 class _BackdropContentState extends BaseState<BackdropContent> with SingleTickerProviderStateMixin {
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    return Container(
+      child: ListView.separated(
+        controller: widget.scrollController,
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: NoScaleText('$index'),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return HorizontalDivider();
+        },
+        itemCount: 20,
+      ),
+    );
   }
 }

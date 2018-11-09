@@ -20,6 +20,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flutter_svg: ^0.6.2
+  flutter_add_calendar: ^0.0.1
 
 dev_dependencies:
   flutter_test:

@@ -22,6 +22,17 @@ class CreatePostView extends StatefulWidget {
 
 class _CreatePostViewState extends BaseState<CreatePostView> with CreatePostViewUIContract {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((duration) {
+      print('setState');
+      setState(() {
+
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CreatePostViewBuilder(this).build();
   }
